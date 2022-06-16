@@ -32,21 +32,13 @@ server.post('/tweets', (request, response) => {
     for (let i=0; i<users.length; i++){
         if (users[i].username === body.username) 
         {body.avatar = users[i].avatar}
-    }
-    
-    if (tweets.length < 10) {
-       tweets.push(body); 
-    }
-    else {
-        tweets.shift;
-        tweets.push(body); 
-    }
-    
+    }    
+    tweets.push(body);     
     response.send("OK")
   })
 
 server.get('/tweets', (request, response) => {
-    response.send(tweets)
+    response.send(tweets.slice(-10))
   })
 
 
