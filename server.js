@@ -20,7 +20,7 @@ server.use(function (request, response, next) {
 });
 
 const users = [];
-const tweets = []
+const tweets = [];
 
 server.post('/sign-up', (request, response) => {
   users.push(request.body);
@@ -28,7 +28,20 @@ server.post('/sign-up', (request, response) => {
 });
 
 server.post('/tweets', (request, response) => {
-    tweets.push(request.body);
+    let body = request.body;
+    for (let i=0; i<users.length; i++){
+        if (users[i].username === body.username) 
+        {body.avatar = users[i].avatar}
+    }
+    
+    if (tweets.length < 10) {
+       tweets.push(body); 
+    }
+    else {
+        tweets.shift;
+        tweets.push(body); 
+    }
+    
     response.send("OK")
   })
 
