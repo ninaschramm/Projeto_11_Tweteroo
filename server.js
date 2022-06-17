@@ -33,12 +33,12 @@ server.post('/tweets', (request, response) => {
         if (users[i].username === body.username) 
         {body.avatar = users[i].avatar}
     }    
-    tweets.push(body);     
+    tweets.unshift(body);     
     response.send("OK")
   })
 
 server.get('/tweets', (request, response) => {
-    response.send(tweets.slice(-10))
+    response.send(tweets.slice(0, 10))
   })
 
 
